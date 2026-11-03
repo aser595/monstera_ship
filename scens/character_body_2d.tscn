@@ -147,6 +147,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_i42b4"]
 radius = 15.033297
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(56, 60)
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sync"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -157,8 +160,14 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:synced_flip")
 properties/2/spawn = true
 properties/2/replication_mode = 2
+properties/3/path = NodePath(".:health")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
-[node name="player" type="CharacterBody2D" unique_id=910050726]
+[node name="player" type="CharacterBody2D" unique_id=910050726 groups=["players"]]
 collision_layer = 2
 collision_mask = 1
 script = ExtResource("1_iherx")
@@ -185,6 +194,22 @@ offset_bottom = -109.0
 theme_override_font_sizes/font_size = 12
 text = "Player"
 horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 30.0
+offset_top = -108.0
+offset_right = 90.0
+offset_bottom = -100.0
+value = 100.0
+show_percentage = false
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(100, -35)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_sync")

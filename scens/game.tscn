@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ck2lxyypkrpto"]
 
 [ext_resource type="Script" uid="uid://cqgjao2u22lek" path="res://scripts/game.gd" id="1_game"]
-[ext_resource type="PackedScene" uid="uid://cmxxjx72qkcah" path="res://scens/player_2.tscn" id="2_ulfje"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i42b4"]
 
@@ -28,8 +27,3 @@ physics_material_override = SubResource("PhysicsMaterial_i42b4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1741556931]
 position = Vector2(580, -39)
 shape = SubResource("RectangleShape2D_iherx")
-
-[node name="player 2" parent="StaticBody2D" unique_id=1036231598 instance=ExtResource("2_ulfje")]
-position = Vector2(-116, -57)
-rotation = 6.282295
-scale = Vector2(1.4402661, 1.1476632)

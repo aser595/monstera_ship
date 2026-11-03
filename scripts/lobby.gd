@@ -6,6 +6,7 @@ var ip_edit: LineEdit
 var host_btn: Button
 var join_btn: Button
 var start_btn: Button
+var pvp_check: CheckBox
 var players_label: Label
 var status_label: Label
 
@@ -41,6 +42,14 @@ func _ready() -> void:
 	join_btn.pressed.connect(_on_join)
 	box.add_child(join_btn)
 
+	# خانة الـ PvP: الهوست بس هو اللي يقدر يغيرها
+	pvp_check = CheckBox.new()
+	pvp_check.text = "PvP (اللاعبين يضربوا بعض)"
+	pvp_check.button_pressed = Network.pvp_enabled
+	pvp_check.disabled = true
+	pvp_check.toggled.connect(func(on: bool): Network.set_pvp(on))
+	box.add_child(pvp_check)
+
 	players_label = Label.new()
 	box.add_child(players_label)
 
@@ -54,6 +63,7 @@ func _ready() -> void:
 	box.add_child(start_btn)
 
 	Network.players_changed.connect(_refresh)
+	Network.settings_changed.connect(_refresh_pvp)
 	Network.connection_failed.connect(func(): status_label.text = "فشل الاتصال")
 	_refresh()
 
@@ -81,5 +91,13 @@ func _refresh() -> void:
 		lines.append("• " + Network.players[id]["name"])
 	players_label.text = "اللاعبين (%d/%d):\n%s" % [Network.players.size(), Network.MAX_PLAYERS, "\n".join(lines)]
 	start_btn.visible = multiplayer.is_server() and not Network.players.is_empty()
+	_refresh_pvp()
 	if Network.players.is_empty():
 		_set_buttons_enabled(true)
+
+
+func _refresh_pvp() -> void:
+	pvp_check.set_pressed_no_signal(Network.pvp_enabled)
+	# بس الهوست (السيرفر) يقدر يلمس الخانة
+	var is_host := multiplayer.has_multiplayer_peer() and multiplayer.is_server() and not Network.players.is_empty()
+	pvp_check.disabled = not is_host

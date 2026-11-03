@@ -9,10 +9,12 @@ const LOBBY_SCENE := "res://scens/lobby.tscn"
 signal players_changed
 signal connection_failed
 signal all_players_loaded
+signal settings_changed
 
 var players := {}          # peer_id -> {"name": String}
 var my_name := "Player"
 var players_loaded := 0
+var pvp_enabled := true     # الهوست بس هو اللي بيغيرها من اللوبي
 
 
 func _ready() -> void:
@@ -36,6 +38,7 @@ func host_game(player_name: String) -> Error:
 	players.clear()
 	players[1] = {"name": player_name}   # الهوست دايماً id = 1
 	players_changed.emit()
+	settings_changed.emit()
 	return OK
 
 
@@ -69,12 +72,25 @@ func _register_player(player_name: String) -> void:
 	var id := multiplayer.get_remote_sender_id()
 	players[id] = {"name": player_name}
 	_sync_players.rpc(players)
+	_sync_settings.rpc(pvp_enabled)   # اللاعب الجديد يعرف حالة الـ PvP
 
 
 @rpc("authority", "call_local", "reliable")
 func _sync_players(new_players: Dictionary) -> void:
 	players = new_players
 	players_changed.emit()
+
+
+## الهوست بيشغّل/بيقفل الـ PvP
+func set_pvp(enabled: bool) -> void:
+	if multiplayer.is_server():
+		_sync_settings.rpc(enabled)
+
+
+@rpc("authority", "call_local", "reliable")
+func _sync_settings(pvp: bool) -> void:
+	pvp_enabled = pvp
+	settings_changed.emit()
 
 
 func _on_peer_connected(_id: int) -> void:
