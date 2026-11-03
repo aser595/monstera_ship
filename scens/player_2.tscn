@@ -106,18 +106,18 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24qm0"]
-radius = 9.149923
+radius = 27.466257
 
 [node name="player 2" type="CharacterBody2D" unique_id=1036231598]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1407203087]
-position = Vector2(24.500002, -9.5)
-scale = Vector2(0.51562506, 0.578125)
+position = Vector2(-27.500006, -56.499996)
+scale = Vector2(2.140625, 2.0468752)
 sprite_frames = SubResource("SpriteFrames_i42b4")
 animation = &"run"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1101861306]
-position = Vector2(24, -7)
+position = Vector2(-28, -44)
 scale = Vector2(0.65625, 0.6953125)
 shape = SubResource("CircleShape2D_24qm0")
