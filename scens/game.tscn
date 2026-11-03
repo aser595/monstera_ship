@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ck2lxyypkrpto"]
+
+[ext_resource type="PackedScene" uid="uid://21wf6rna1nj3" path="res://scens/character_body_2d.tscn" id="1_7lg5d"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i42b4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iherx"]
+size = Vector2(4369, 34)
+
+[node name="Game" type="Node2D" unique_id=1781216563]
+position = Vector2(-10, -60)
+
+[node name="CharacterBody2D" parent="." unique_id=910050726 instance=ExtResource("1_7lg5d")]
+position = Vector2(-117, -31)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=208101946]
+position = Vector2(-51, 43)
+physics_material_override = SubResource("PhysicsMaterial_i42b4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1741556931]
+position = Vector2(580, -39)
+shape = SubResource("RectangleShape2D_iherx")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=25254246]
+position = Vector2(-34, -102)
+zoom = Vector2(2, 2)
+limit_enabled = false
