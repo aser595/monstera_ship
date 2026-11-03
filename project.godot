@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Monsters_ship"
-run/main_scene="uid://ck2lxyypkrpto"
+run/main_scene="res://scens/lobby.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Network="*res://scripts/network.gd"
 
 [display]
 

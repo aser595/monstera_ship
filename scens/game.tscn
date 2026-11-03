@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck2lxyypkrpto"]
 
-[ext_resource type="PackedScene" uid="uid://21wf6rna1nj3" path="res://scens/character_body_2d.tscn" id="1_7lg5d"]
+[ext_resource type="Script" uid="uid://cqgjao2u22lek" path="res://scripts/game.gd" id="1_game"]
 [ext_resource type="PackedScene" uid="uid://cmxxjx72qkcah" path="res://scens/player_2.tscn" id="2_ulfje"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i42b4"]
@@ -10,8 +10,15 @@ size = Vector2(4369, 34)
 
 [node name="Game" type="Node2D" unique_id=1781216563]
 position = Vector2(-10, -60)
+script = ExtResource("1_game")
 
-[node name="CharacterBody2D" parent="." unique_id=910050726 instance=ExtResource("1_7lg5d")]
+[node name="Players" type="Node2D" parent="." unique_id=457735730]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=911243993]
+_spawnable_scenes = PackedStringArray("uid://21wf6rna1nj3")
+spawn_path = NodePath("../Players")
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1481138837]
 position = Vector2(-222, -9)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=208101946]
@@ -23,11 +30,6 @@ position = Vector2(580, -39)
 shape = SubResource("RectangleShape2D_iherx")
 
 [node name="player 2" parent="StaticBody2D" unique_id=1036231598 instance=ExtResource("2_ulfje")]
-position = Vector2(-452.99997, -29)
+position = Vector2(-116, -57)
 rotation = 6.282295
 scale = Vector2(1.4402661, 1.1476632)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=25254246]
-position = Vector2(-34, -102)
-zoom = Vector2(2, 2)
-limit_enabled = false
